@@ -87,8 +87,15 @@ router.put("/:id", (req: Request, res: Response) => {
   const task = tasks.find(t => t.id === id);
   if (!task) return res.status(404).json({ error: "No se encontró la tarea buscada" });
 
-  task.title = req.body.title || task.title;
-  task.description = req.body.description || task.description; 
+  const { title, description } = req.body;
+  const errors = validate(title, description);
+
+  if(Object.keys(errors).length > 0){
+      return res.status(400).json({ errors })
+  }
+
+  task.title = title;
+  task.description = description;
   res.json(task);
 });
 
