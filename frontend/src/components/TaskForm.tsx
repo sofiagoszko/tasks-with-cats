@@ -18,15 +18,16 @@ export default function TaskForm(){
 
   useEffect(() => {
     if(id){
-      fetch(`${import.meta.env.VITE_API_URL}/tasks`)
-        .then((res) => res.json())
-        .then((tasks) => {
-          const task = tasks.find((t: Task) => t.id === id);
-          if(task){
-            setTitle(task.title);
-            setDescription(task.description);
-          }
-        });
+      fetch(`${import.meta.env.VITE_API_URL}/tasks/${id}`)
+        .then((res) => {
+          if (!res.ok) throw new Error("No se encontró la tarea buscada");
+          return res.json();
+        })
+        .then((task: Task) => {
+          setTitle(task.title);
+          setDescription(task.description);
+        })
+        .catch((err) => console.error("ERROR ", err));
     }
   }, [id]);
 
