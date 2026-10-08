@@ -1,5 +1,7 @@
 # Challenge ingreso a Academia ForIT 2025
 
+Aplicación de lista de tareas con un backend en **Express + TypeScript** y un frontend en **React + Vite + TypeScript**.
+
 ## Objetivo
 Crear una aplicación básica de lista de tareas que demuestre conocimientos fundamentales de Git, JavaScript, Node.js y React.
 
@@ -24,21 +26,40 @@ Crear una aplicación básica de lista de tareas que demuestre conocimientos fun
 - Configurar variables de entorno tanto para la api como el frontend
 - Usar CSS básico para darle estilo a la aplicación
 
+## Estructura del proyecto
+
+```
+ForIT2025/
+├── backend/    API REST con Express (ver backend/README.md)
+├── frontend/   Aplicación React con Vite (ver frontend/README.md)
+└── img/        Capturas de la aplicación funcionando
+```
+
+Cada carpeta tiene su propio README con más detalle:
+- [Backend](./backend/README.md): endpoints, variables de entorno y scripts.
+- [Frontend](./frontend/README.md): rutas, componentes, variables de entorno y scripts.
+
+## Tecnologías
+- **Backend:** Node.js, Express, TypeScript, uuid, dotenv, cors, nodemon
+- **Frontend:** React 19, Vite, TypeScript, React Router, Bootstrap 5 (vía CDN), SweetAlert2
+
 ## Correr la aplicación por primera vez
 
 1. Clonar el repositorio
-2. En la carpeta del backend, crea un archivo *.env* con la variable
+
+2. En la carpeta `backend`, crear un archivo `.env` (se puede copiar de `.env.example`) con la variable:
 
 ```
-PORT=numero-de-puerto
-```
-3. En la carpeta del frontend, crea un archivo *.env* con la variable 
-
-```
-VITE_API_URL=http://localhost:numerp-de-puerto/api
+PORT=8080
 ```
 
-4. Desde una terminal
+3. En la carpeta `frontend`, crear un archivo `.env` (se puede copiar de `.env.example`) con la URL de la API, usando el mismo puerto que el backend:
+
+```
+VITE_API_URL=http://localhost:8080/api
+```
+
+4. Desde una terminal, levantar el backend:
 
 ```
 cd backend
@@ -46,14 +67,15 @@ npm install
 npm run dev
 ```
 
-5. Desde otra terminal
+5. Desde otra terminal, levantar el frontend:
 
 ```
 cd frontend
 npm install
-npm install sweetalert2
 npm run dev
 ```
+
+6. Abrir en el navegador la URL que muestra Vite (por defecto http://localhost:5173).
 
 ## Correr la aplicación ya descargada
 
@@ -64,14 +86,14 @@ cd backend
 npm run dev
 ```
 
-6. Desde otra terminal
+2. Desde otra terminal
 
 ```
 cd frontend
 npm run dev
 ```
 
-> Por el momento las tareas no se guardan en una base de datos, por lo que toda la información guardada se pierde al tirar la aplicación
+> Por el momento las tareas no se guardan en una base de datos, por lo que toda la información guardada se pierde al detener el backend.
 
 
 ## Aplicación andando
@@ -99,11 +121,11 @@ npm run dev
 ![Listado de tareas con la nueva tarea creada](<./img/listado con tarea.png>)
 
 ### Editar tarea
-- Formulacio para editar la tarea
-![Formulacio para editar la tarea](<./img/editar tarea.png>)
+- Formulario para editar la tarea
+![Formulario para editar la tarea](<./img/editar tarea.png>)
 
 - Mensaje de éxito
-![Mensake de éxito](<./img/editar exito.png>)
+![Mensaje de éxito](<./img/editar exito.png>)
 
 - Listado de tareas con la tarea editada
 ![Listado de tareas con la tarea editada](<./img/tarea editada.png>)
@@ -121,7 +143,7 @@ npm run dev
 - Listado de tareas con la tarea finalizada
 ![Listado de tareas con la tarea finalizada](<./img/tarea finalizada.png>)
 
-### Filtrar de tareas
+### Filtrar tareas
 
 - Listado de tareas sin filtrar
 ![Listado de tareas sin filtrar](<./img/listado con tareas.png>)

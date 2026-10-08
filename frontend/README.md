@@ -1,69 +1,58 @@
-# React + TypeScript + Vite
+# Frontend - Lista de tareas
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación hecha con **React 19**, **Vite** y **TypeScript**. Consume la API del backend con `fetch`, usa **React Router** para la navegación, **Bootstrap 5** (cargado por CDN en `index.html`) para los estilos y **SweetAlert2** para los mensajes de confirmación y éxito.
 
-Currently, two official plugins are available:
+## Estructura
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```
+frontend/
+├── public/                    Imágenes estáticas (cat.jpg, task.png)
+├── src/
+│   ├── main.tsx               Punto de entrada
+│   ├── App.tsx                Layout general y definición de rutas
+│   ├── Home.tsx               Página de inicio
+│   ├── Types.tsx              Tipo Task compartido
+│   ├── App.css / index.css    Estilos
+│   └── components/
+│       ├── HeaderComponent.tsx  Barra de navegación
+│       ├── FooterComponent.tsx  Pie de página
+│       ├── TaskList.tsx         Listado de tareas, filtro por estado y botón Finalizar/Activar
+│       ├── TaskItem.tsx         Detalle de una tarea
+│       └── TaskForm.tsx         Formulario para crear y editar tareas
+├── index.html
+└── vite.config.ts
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Rutas
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| Ruta | Componente | Descripción |
+|------|------------|-------------|
+| `/` | `Home` | Página de bienvenida |
+| `/tasks` | `TaskList` | Listado de tareas con filtro (Todas / Abierta / Finalizada) |
+| `/new-task` | `TaskForm` | Crear una tarea |
+| `/edit-task/:id` | `TaskForm` | Editar una tarea existente |
+| `/task/:id` | `TaskItem` | Ver el detalle de una tarea |
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Variables de entorno
+
+Crear un archivo `.env` en esta carpeta (se puede copiar de `.env.example`):
+
 ```
+VITE_API_URL=http://localhost:8080/api
+```
+
+| Variable | Descripción |
+|----------|-------------|
+| `VITE_API_URL` | URL base de la API, incluyendo `/api`. El puerto tiene que coincidir con el `PORT` del backend. |
+
+## Scripts
+
+| Comando | Descripción |
+|---------|-------------|
+| `npm install` | Instala las dependencias |
+| `npm run dev` | Levanta el servidor de desarrollo de Vite (por defecto en http://localhost:5173) |
+| `npm run build` | Chequea tipos y genera el build de producción en `dist/` |
+| `npm run preview` | Sirve localmente el build de producción |
+| `npm run lint` | Corre ESLint |
+
+> El backend tiene que estar corriendo para que la aplicación pueda listar, crear o editar tareas.
